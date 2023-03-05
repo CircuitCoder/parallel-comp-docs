@@ -10,11 +10,14 @@ theme:
   icon:
     logo: material/format-list-checks
   palette:
-    primary: orange
+    primary: blue
 
 nav:
   - 主页: index.md
-  - 集群使用初步: intro.md
+  - 教程:
+    - 集群使用初步: intro.md
+  - 参考:
+    - 集群配置: spec.md
 
 extra_css:
   - styles/index.css
