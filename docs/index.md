@@ -8,11 +8,11 @@
 
 ```bash
 # 登录集群
-$ ssh -p 22222 1145141919@166.111.226.100
+$ ssh -p 22222 学生证号@166.111.226.100
 # 或者如果你设置了 config: `ssh parallel-comp`
 
 # 加载 Spack
-[__@admin ~] source /home/software/spack/share/spack/setup-env.sh
+[____@admin ~] source /home/software/spack/share/spack/setup-env.sh
 
 # 加载其他软件包
 spack load openmpi

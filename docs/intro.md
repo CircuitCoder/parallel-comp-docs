@@ -44,7 +44,7 @@ Host parallel-comp
 Spack 在初次登录后需要进行一些设置：
 
 ```bash
-[____@admin ~] source /home/software/spack/share/spack/setup-env.sh
+[____@admin ~] source /home/software/spack/share/spack/setup-env.sh # 这一步可能会花一点时间
 [____@admin ~] spack load gcc@10.4.0
 [____@admin ~] spack compiler find
 ```
@@ -54,37 +54,48 @@ Spack 在初次登录后需要进行一些设置：
 初始化之后，可以使用 `spack load` 和 `spack unload` 指令动态加载、卸载软件。例如如果你需要使用 OpenMPI 的相关库和可执行文件，可以运行：
 
 ```bash
-$ spack load openmpi
+[____@admin ~] spack load openmpi
 ```
 
 之后可以在 Shell 中看到 OpenMPI 提供的 mpicxx、mpirun 等可执行文件。尝试：
 
 ```bash
-$ which mpicxx
-$ mpicxx
+[____@admin ~] which mpicxx
+[____@admin ~] mpicxx
+[____@admin ~] ompi_info
 ```
 
-可以使用 `spack unload ...` 隐藏软件包，使用 `spack list` 列出所有软件包。详细的说明请见 [spack 文档](https://spack.readthedocs.io/en/latest/command_index.html)。
+**第一次作业需要使用**的 Intel OneAPI 编译器可以通过以下命令加载：
+
+```bash
+[____@admin ~] spack load intel-oneapi-compilers
+[____@admin ~] icc --version
+```
+
+可以使用 `spack unload ...` 隐藏软件包，使用 `spack find` 列出所有软件包。详细的说明请见 [spack 文档](https://spack.readthedocs.io/en/latest/command_index.html)。
 
 ## 提交任务
 
 集群使用 SLURM 管理任务，在计算节点上执行任务无需登录到计算节点上。`osu_bw` 是俄亥俄州立大学的 Micro Benchmark 中测试带宽的程序，以它为例：
 
 ```
-# 加载 osu_bw 所在的软件包
-# TODO: 目前有命名冲突（IMPI OMPI 各一个）。需要看老师上课讲哪个版本的 MPI
-$ spack load osu-micro-benchmark
+# 加载 osu_bw 所在的软件包，^openmpi 只选择使用 openmpi 编译的版本
+[____@admin ~] spack load osu-micro-benchmark ^openmpi
 
 # 提交任务
-# TODO: 目前不工作，见 internal/todo.md 中关于 PMIx 的说明
-$ srun -n2 -N2 osu_bw
+[____@admin ~] srun -n2 -N2 osu_bw
 ```
 
 调用 `squeue` 可以看到等待中的任务，调用 `sinfo` 可以看到节点的。详细的说明请见 [SLURM 文档](https://slurm.schedmd.com/quickstart.html)。
 
 ## VSCode
 
-如果希望使用 VSCode 直接编辑集群上的文件，请安装 VSCode "Remote - SSH" 扩展。在安装完成之后，在 ++ctrl+shift+p++ 的选单中运行 `Remote-SSH: Connect to Host...`。如果你已经配置了 `~/.ssh/config`，那么应该可以看到集群显示在下一步选单中了。如果没有出现，请选择 `Configure SSH Hosts...`，并和 `~/.ssh/config` 写入同样的内容，再重新执行 `Remote-SSH: Connect to Host...`。
+如果希望使用 VSCode 直接编辑集群上的文件，可以使用 VSCode 第一方扩展：
+
+- 安装 VSCode "Remote - SSH" 扩展
+- ++ctrl+shift+p++ -> `Remote-SSH: Connect to Host...`
+- 如果你已经配置了 `~/.ssh/config`，那么应该可以看到集群显示在下一步选单中了。
+  - 如果没有出现，请选择 `Configure SSH Hosts...`，并和 `~/.ssh/config` 写入同样的内容，再重新执行 `Remote-SSH: Connect to Host...`。
 
 使用 VSCode 登录集群后即可远程编辑，并可以使用内置的集成终端在集群上执行命令。
 
