@@ -1,4 +1,18 @@
-# OpenMPI IB support
+# Pending
+
+## mpirun prefix
+
+Right now mpirun doesn't have prefixes. It also cannot automatically find orted.
+
+It's likely we'll need these configure flags: `--enable-orterun-prefix-by-default --enable-mpirun-prefix-by-default`
+
+It's currently unknown that after these flags are added, if we'll able to specify different prefixes for orted and user programs.
+
+# Resolved
+
+## OpenMPI IB support
+
+> Resolved by reinstalling ucx
 
 OpenMPI 4 has two way of supporting IB:
 
@@ -24,15 +38,8 @@ mpirun \
 
 The above example uses tcp on `ib0` (netdev on `mlx5_0`). If we're going to use IB, it's likely that we have to use the name `mlx5_0` with a port (e.g. `mlx5_0:1`). Check `ucx_info -d`
 
+## slurm PMIx support
 
-# slurm PMIx support
+> Resolved by compiling slurm with PMIx, and openmpi with slurm support
 
 Currently, slurm is not compiled with PMIx. So we cannot run `srun ompi_software` and expect it to JUST WORK (TM).
-
-# mpirun prefix
-
-Right now mpirun doesn't have prefixes. It also cannot automatically find orted.
-
-It's likely we'll need these configure flags: `--enable-orterun-prefix-by-default --enable-mpirun-prefix-by-default`
-
-It's currently unknown that after these flags are added, if we'll able to specify different prefixes for orted and user programs.
