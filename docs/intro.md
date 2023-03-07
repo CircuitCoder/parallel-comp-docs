@@ -80,7 +80,7 @@ Spack 在初次登录后需要进行一些设置：
 
 ```
 # 加载 osu_bw 所在的软件包，^openmpi 只选择使用 openmpi 编译的版本
-[____@admin ~] spack load osu-micro-benchmark ^openmpi
+[____@admin ~] spack load osu-micro-benchmarks ^openmpi
 
 # 提交任务
 [____@admin ~] srun -n2 -N2 osu_bw
