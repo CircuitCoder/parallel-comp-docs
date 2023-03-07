@@ -601,7 +601,7 @@ Host parallel-comp
 <h2 id="_3">提交任务</h2>
 <p>集群使用 SLURM 管理任务，在计算节点上执行任务无需登录到计算节点上。<code>osu_bw</code> 是俄亥俄州立大学的 Micro Benchmark 中测试带宽的程序，以它为例：</p>
 <div class="highlight"><pre><span></span><code># 加载 osu_bw 所在的软件包，^openmpi 只选择使用 openmpi 编译的版本
-[____@admin ~] spack load osu-micro-benchmark ^openmpi
+[____@admin ~] spack load osu-micro-benchmarks ^openmpi
 
 # 提交任务
 [____@admin ~] srun -n2 -N2 osu_bw
